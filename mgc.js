@@ -13,11 +13,22 @@ function httpGet(url) {
     "use strict";
     
     const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false); // false for synchronous request
+    xmlHttp.open("GET", url, true); // false for synchronous request
     xmlHttp.send(null);
     
     return xmlHttp.responseText;
 }
+
+function myAsyncFunction(url) {
+    "use strict";
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = () => resolve(xhr.responseText);
+      xhr.onerror = () => reject(xhr.statusText);
+      xhr.send();
+    });
+  }
 
 class Address {
     constructor(googleJson) {
@@ -95,10 +106,11 @@ function geocode() {
     
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
     
-    address_array.forEach(function (address) {
+    address_array.forEach(async function (address) {
         const request_address = `${BASE}address=${address}&region=${REGION}&language=${LANGUAGE}&key=${API_KEY}`;
-        const request_json = JSON.parse(httpGet(request_address));
-        console.log(request_json);
+        const response = await myAsyncFunction/*httpGet*/(request_address);
+        console.log(response);
+        const request_json = JSON.parse(response);
         
         results_text += address + "\t";
         
@@ -113,9 +125,8 @@ function geocode() {
         
         results_text += "\n";
         document.getElementById("progress_bar").value += 1;
+        document.getElementById("results_box").value = results_text;
     });
-    document.getElementById("results_box").value = results_text;
-    document.getElementById("progress_bar").value = 100;
 }
 
 function reverse_geocode() {
