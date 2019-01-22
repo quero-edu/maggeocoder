@@ -109,7 +109,6 @@ function geocode() {
     address_array.forEach(async function (address) {
         const request_address = `${BASE}address=${address}&region=${REGION}&language=${LANGUAGE}&key=${API_KEY}`;
         const response = await myAsyncFunction/*httpGet*/(request_address);
-        console.log(response);
         const request_json = JSON.parse(response);
         
         results_text += address + "\t";
