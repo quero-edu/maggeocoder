@@ -10,10 +10,12 @@ const BASE = "https://maps.googleapis.com/maps/api/geocode/json?";
 
 function httpGet(url) {
     "use strict";
+    
     var a = ";";
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false); // false for synchronous request
     xmlHttp.send(null);
+    
     return xmlHttp.responseText;
 }
 
