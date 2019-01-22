@@ -19,14 +19,18 @@
         Endereços
         <form>
           <textarea id="addresses_box" placeholder="Endereços de Campus" style="height: 200px;"></textarea>
-          <input type="button" value="Geocode">
-          <input type="button" value="Reverse Geocode">
+          <input type="button" value="Geocode" onclick="geocode()">
+          <input type="button" value="Reverse Geocode" onclick="reverse_geocode()">
         </form>
+      </div>
+      <div>
+        <progress id="progress_bar" value="0" max="100"></progress>
       </div>
       <div>
         Resultados
         <textarea id="results_box" style="height: 200px;"></textarea>
       </div>
     </div>
+    <script src="mgc.js"></script>
   </body>
 </html>
