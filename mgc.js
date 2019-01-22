@@ -131,5 +131,5 @@ function geocode() {
 
 function reverse_geocode() {
     "use strict";
-    alert("R_Geo!");
+    alert("Te trolei ainda preciso fazer essa função");
 }
