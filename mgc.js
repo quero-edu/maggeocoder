@@ -1,7 +1,7 @@
 /*jshint browser: true*/
 /*jshint devel: true */
 /*jshint esversion: 6 */
-/*jshint sub:true*/
+/*jshint sub: true*/
 /*jshint strict: true */
 
 const API_KEY = "***REMOVED***";
@@ -12,15 +12,6 @@ const BASE = "https://maps.googleapis.com/maps/api/geocode/json?";
 function httpGet(url) {
     "use strict";
     
-    const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, true); // false for synchronous request
-    xmlHttp.send(null);
-    
-    return xmlHttp.responseText;
-}
-
-function myAsyncFunction(url) {
-    "use strict";
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("GET", url);
@@ -106,9 +97,9 @@ function geocode() {
     
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
     
-    address_array.forEach(async function (address) {
+    address_array.forEach(async function (address) { // jshint ignore:line
         const request_address = `${BASE}address=${address}&region=${REGION}&language=${LANGUAGE}&key=${API_KEY}`;
-        const response = await myAsyncFunction/*httpGet*/(request_address);
+        const response = await httpGet(request_address); // jshint ignore:line
         const request_json = JSON.parse(response);
         
         results_text += address + "\t";
@@ -125,10 +116,11 @@ function geocode() {
         results_text += "\n";
         document.getElementById("progress_bar").value += 1;
         document.getElementById("results_box").value = results_text;
-    });
+    }); // jshint ignore:line
 }
 
 function reverse_geocode() {
     "use strict";
+    
     alert("Te trolei ainda preciso fazer essa função");
 }
