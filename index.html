@@ -2,6 +2,15 @@
   <head lang="pt-BR">
     <meta charset="utf-8">
     <title>MagGeoCoder</title>
+    <!-- Favicon Junk -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Favicon Junk End-->
   </head>
   <body>
     <div>
@@ -9,8 +18,14 @@
       <div>
         Endereços
         <form>
-          <textarea placeholder="Endereços de Campus"></textarea>
+          <textarea id="addresses_box" placeholder="Endereços de Campus" style="height: 200px;"></textarea>
+          <input type="button" value="Geocode">
+          <input type="button" value="Reverse Geocode">
         </form>
+      </div>
+      <div>
+        Resultados
+        <textarea id="results_box" style="height: 200px;"></textarea>
       </div>
     </div>
   </body>
