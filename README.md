@@ -1,4 +1,4 @@
-# mag-geo-coder
+# MagGeoCoder
 
 **TODO**: Test Maps API vs Place Geocode API
 
