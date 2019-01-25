@@ -20,12 +20,17 @@
         <form>
           <textarea id="addresses_box" placeholder="Endereços de Campus" style="height: 200px; width: 900px"></textarea>
           <br>
+          <input type="radio" id="geoapi" checked="checked" name="api_radio" value="geoapi">
+          <label for="geoapi">Geocode API</label>
+          <input type="radio" id="mapsapi" name="api_radio" value="mapsapi">
+          <label for="geoapi">Maps JS API</label>
+          <br>
           <input type="button" value="Geocode" onclick="geocode()">
           <input type="button" value="Reverse Geocode" onclick="reverse_geocode()">
         </form>
       </div>
       <div style="width: 900px">
-        <div id="map" style="height: 450px"></div>
+        <div id="map_div" style="height: 450px"></div>
       </div>
       <div>
         <br>
@@ -36,13 +41,7 @@
         <textarea id="results_box" placeholder="Estado, Cidade, Endereço, Complemento, Bairro, CEP, Latitude, Longitude" style="height: 200px; width: 900px"></textarea>
       </div>
     </div>
-    <script src=https://maps.googleapis.com/maps/api/js?key=***REMOVED*** "></script>
-    <script>
-      var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -14.235004, lng: -51.92528},
-          zoom: 4
-      });
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***&language=pt-BR"></script>
     <script src="mgc.js"></script>
   </body>
 </html>

@@ -9,6 +9,11 @@ const LANGUAGE = "pt-BR";
 const REGION = "BR";
 const BASE = "https://maps.googleapis.com/maps/api/geocode/json?";
 
+var map = new google.maps.Map(document.getElementById('map_div'), {
+    center: {lat: -14.235004, lng: -51.92528},
+    zoom: 4
+});
+
 function httpGet(url) {
     "use strict";
     
@@ -22,7 +27,7 @@ function httpGet(url) {
   }
 
 class Address {
-    constructor(googleJson) {
+    constructor(googleJson, apitype) {
         "use strict";
         
         try {
@@ -68,13 +73,19 @@ class Address {
             this.cep = "";
         }
         try {
-            this.lat = googleJson["results"][0]["geometry"]["location"]["lat"].toString();
+            if (apitype === "geoapi")
+                this.lat = googleJson["results"][0]["geometry"]["location"]["lat"].toString();
+            else if (apitype === "mapsapi")
+                this.lat = googleJson["results"][0]["geometry"]["location"]["lat"]().toString();
         }
         catch (e) {
             this.lat = "";
         }
         try {
-            this.lon = googleJson["results"][0]["geometry"]["location"]["lng"].toString();
+            if (apitype === "geoapi")
+                this.lon = googleJson["results"][0]["geometry"]["location"]["lng"].toString(); 
+            else if (apitype === "mapsapi")
+                this.lon = googleJson["results"][0]["geometry"]["location"]["lng"]().toString();
         }
         catch (e) {
             this.lon = "";
@@ -87,7 +98,7 @@ function formatAddress(address) {
     return `${address.estado}\t${address.cidade}\t${address.endereco}\t${address.complemento}\t${address.bairro}\t${address.cep}\t${address.lat}\t${address.lon}`;
 }
 
-function geocode() {
+function geocodeAPIgeocode() {
     "use strict";
     
     const address_text = document.getElementById("addresses_box").value;
@@ -105,7 +116,8 @@ function geocode() {
         results_text += address + "\t";
         
         if (request_json["status"] === "OK") {
-            const address_object = new Address(request_json);
+            console.log(request_json);
+            const address_object = new Address(request_json, "geoapi");
             const formatted_address = formatAddress(address_object);
             results_text += formatted_address;
         }
@@ -119,8 +131,62 @@ function geocode() {
     }); // jshint ignore:line
 }
 
+function mapsAPIGeocode() {
+    "use strict";
+    
+    const address_text = document.getElementById("addresses_box").value;
+    const address_array = address_text.split("\n");
+    document.getElementById("progress_bar").value = 0;
+    document.getElementById("progress_bar").max = address_array.length;
+    
+    let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
+    
+    address_array.forEach(async function (address) { // jshint ignore:line
+        results_text += address + "\t";
+        
+        const geocoder = new google.maps.Geocoder();
+        const request = {
+            "address": address,
+            "region": REGION
+        };
+        geocoder.geocode(request, function(results, status) {
+            if (status == "OK") {
+                const request_json = {"results": results};
+                console.log(request_json);
+                console.log(request_json["results"][0]["geometry"]["location"]["lat"]());
+                const address_object = new Address(request_json, "mapsapi");
+                const formatted_address = formatAddress(address_object);
+                results_text += formatted_address;
+                results_text += "\n";
+                document.getElementById("progress_bar").value += 1;
+                document.getElementById("results_box").value = results_text;
+            }
+            else {
+                results_text += request_json["status"];
+                results_text += "\n";
+                document.getElementById("progress_bar").value += 1;
+                document.getElementById("results_box").value = results_text;
+            }
+        });
+    }); // jshint ignore:line
+}
+
 function reverse_geocode() {
     "use strict";
     
     alert("Te trolei ainda preciso fazer essa função");
+}
+
+function geocode() {
+    "use strict";
+    
+    const api_choice =  document.querySelector('input[name=api_radio]:checked').value;
+    switch (api_choice) {
+        case "geoapi":
+            geocodeAPIgeocode();
+            break;
+        case "mapsapi":
+            mapsAPIGeocode();
+            break;
+    }
 }
