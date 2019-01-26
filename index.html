@@ -20,10 +20,13 @@
         <form>
           <textarea id="addresses_box" placeholder="Endereço 1&#10;Endereço 2&#10;..." style="height: 200px; width: 900px"></textarea>
           <br>
-          <input type="radio" id="geoapi" checked="checked" name="api_radio" value="geoapi">
-          <label for="geoapi">Geocode API</label>
-          <input type="radio" id="mapsapi" name="api_radio" value="mapsapi">
-          <label for="geoapi">Maps JS API</label>
+          <input type="radio" id="geoapi_radio" checked="checked" name="api_radio" value="geoapi">
+          <label for="geoapi_radio">Geocode API</label>
+          <input type="radio" id="mapsapi_radio" name="api_radio" value="mapsapi">
+          <label for="mapsapi_radio">Maps JS API</label>
+          <br>
+          <input type="checkbox" id="removelines_checkbox" checked>
+          <label for="removelines_checkbox">Remover Linhas em Branco</label>
           <br>
           <input type="button" value="Geocode" onclick="geocode()">
           <input type="button" value="Reverse Geocode" onclick="reverse_geocode()">

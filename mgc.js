@@ -158,7 +158,11 @@ function geocode() {
     "use strict";
     
     const address_text = document.getElementById("addresses_box").value;
-    const address_array = address_text.split("\n");
+    let address_array = address_text.split("\n");
+    
+    if (document.getElementById("removelines_checkbox").checked)
+        address_array = address_array.filter(line => line != "");
+    
     progress_bar.reset(address_array.length);
     google_map.clearMarkers();
     
