@@ -114,16 +114,25 @@ function httpGet(url) {
       xhr.onerror = () => reject(xhr.statusText);
       xhr.send();
     });
-  }
+}
 
-
+function mapsRequest(request) {
+    "use strict";
+    
+    const geocoder = new google.maps.Geocoder();
+    return new Promise (function(resolve, reject) {
+        geocoder.geocode(request, function(results, status) {
+             resolve({"results": results, "status": status});
+        });
+    });
+}
 
 function formatAddress(address) {
     "use strict";
     return `${address.estado}\t${address.cidade}\t${address.endereco}\t${address.complemento}\t${address.bairro}\t${address.cep}\t${address.lat}\t${address.lon}`;
 }
 
-function geocodeAPIgeocode() {
+function geocode() {
     "use strict";
     
     const address_text = document.getElementById("addresses_box").value;
@@ -133,15 +142,31 @@ function geocodeAPIgeocode() {
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
     
     address_array.forEach(async function (address) { // jshint ignore:line
-        const request_address = `${BASE}address=${address}&region=${REGION}&language=${LANGUAGE}&key=${API_KEY}`;
-        const response = await httpGet(request_address); // jshint ignore:line
-        const request_json = JSON.parse(response);
+        // await
+        const api_choice =  document.querySelector('input[name=api_radio]:checked').value;
+        let request_json = {};
         
+        switch (api_choice) {
+            case "geoapi":
+                const request_address = `${BASE}address=${address}&region=${REGION}&language=${LANGUAGE}&key=${API_KEY}`;
+                const response = await httpGet(request_address); // jshint ignore:line
+                request_json = JSON.parse(response);
+                break;
+            case "mapsapi":
+                console.log("In");
+                const request = {
+                    "address": address,
+                    "region": REGION
+                };
+                request_json = await mapsRequest(request); // jshint ignore:line
+                console.log(request_json);
+                break;
+        }
+        
+        const address_object = new Address(request_json, api_choice);
         results_text += address + "\t";
         
         if (request_json["status"] === "OK") {
-            console.log(request_json);
-            const address_object = new Address(request_json, "geoapi");
             const formatted_address = formatAddress(address_object);
             results_text += formatted_address;
         }
@@ -155,62 +180,10 @@ function geocodeAPIgeocode() {
     }); // jshint ignore:line
 }
 
-function mapsAPIGeocode() {
-    "use strict";
-    
-    const address_text = document.getElementById("addresses_box").value;
-    const address_array = address_text.split("\n");
-    document.getElementById("progress_bar").value = 0;
-    document.getElementById("progress_bar").max = address_array.length;
-    
-    let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
-    
-    address_array.forEach(async function (address) { // jshint ignore:line
-        results_text += address + "\t";
-        
-        const geocoder = new google.maps.Geocoder();
-        const request = {
-            "address": address,
-            "region": REGION
-        };
-        geocoder.geocode(request, function(results, status) {
-            if (status == "OK") {
-                const request_json = {"results": results};
-                const address_object = new Address(request_json, "mapsapi");
-                const formatted_address = formatAddress(address_object);
-                results_text += formatted_address;
-                results_text += "\n";
-                document.getElementById("progress_bar").value += 1;
-                document.getElementById("results_box").value = results_text;
-            }
-            else {
-                results_text += request_json["status"];
-                results_text += "\n";
-                document.getElementById("progress_bar").value += 1;
-                document.getElementById("results_box").value = results_text;
-            }
-        });
-    }); // jshint ignore:line
-}
-
 function reverse_geocode() {
     "use strict";
     
     alert("Te trolei ainda preciso fazer essa função");
-}
-
-function geocode() {
-    "use strict";
-    
-    const api_choice =  document.querySelector('input[name=api_radio]:checked').value;
-    switch (api_choice) {
-        case "geoapi":
-            geocodeAPIgeocode();
-            break;
-        case "mapsapi":
-            mapsAPIGeocode();
-            break;
-    }
 }
 
 changeTheme();
