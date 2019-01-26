@@ -20,9 +20,10 @@ function changeTheme() {
     document.getElementById("body").style.backgroundColor = "#333";
     const textareas = document.getElementsByTagName("textarea");
     for (let element of textareas) {
-        element.style.color = "DDD";
+        element.style.color = "#DDD";
         element.style.backgroundColor = "#333";
     }
+    document.getElementById("progress_bar").style.backgroundColor = "#333";
 }
 
 function httpGet(url) {
