@@ -27,6 +27,8 @@
           <br>
           <input type="checkbox" id="removelines_checkbox" checked>
           <label for="removelines_checkbox">Remover Linhas em Branco</label>
+          <input type="checkbox" id="sync_checkbox">
+          <label for="removelines_checkbox">Fazer requisições síncronas</label>
           <br>
           <input type="button" value="Geocode" onclick="geocode()">
           <input type="button" value="Reverse Geocode" onclick="reverse_geocode()">
@@ -37,7 +39,7 @@
       </div>
       <div>
         <br>
-        <progress id="progress_bar" style="width: 900px"></progress>
+        <progress id="progress_bar" value="0" max="100" style="width: 900px"></progress>
       </div>
       <div>
         <br> Resultados <br>

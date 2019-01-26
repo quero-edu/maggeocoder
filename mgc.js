@@ -138,6 +138,15 @@ function httpGet(url) {
     });
 }
 
+function syncHttpGet(url) {
+    "use strict";
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false); // false for synchronous request
+    xhr.send(null);
+    
+    return xhr.responseText;
+}
+
 function mapsRequest(request) {
     "use strict";
     
@@ -154,7 +163,7 @@ function formatAddress(address) {
     return `${address.estado}\t${address.cidade}\t${address.endereco}\t${address.complemento}\t${address.bairro}\t${address.cep}\t${address.lat}\t${address.lon}`;
 }
 
-function geocode() {
+function asyncGeocode() {
     "use strict";
     
     const address_text = document.getElementById("addresses_box").value;
@@ -167,10 +176,10 @@ function geocode() {
     google_map.clearMarkers();
     
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
+    const api_choice = document.querySelector('input[name=api_radio]:checked').value;
     
     address_array.forEach(async function (address) { // jshint ignore:line
         // await
-        const api_choice = document.querySelector('input[name=api_radio]:checked').value;
         let request_json = {};
         
         switch (api_choice) {
@@ -213,13 +222,60 @@ function geocode() {
     }); // jshint ignore:line
 }
 
+function syncGeocode() {
+    "use strict";
+    
+    const address_text = document.getElementById("addresses_box").value;
+    let address_array = address_text.split("\n");
+    
+    if (document.getElementById("removelines_checkbox").checked)
+        address_array = address_array.filter(line => line != "");
+    
+    progress_bar.reset(address_array.length);
+    //document.getElementById("progress_bar").removeAttribute("value");
+    google_map.clearMarkers();
+    
+    let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
+    const api_choice = document.querySelector('input[name=api_radio]:checked').value;
+    
+    address_array.forEach(function (address) {
+        const request_address = `${BASE}address=${address}&region=${REGION}&language=${LANGUAGE}&key=${API_KEY}`;
+        const request_json = JSON.parse(syncHttpGet(request_address));
+        
+        results_text += address + "\t";
+        
+        if (request_json["status"] === "OK") {
+            const address_object = new Address(request_json, api_choice);
+            const formatted_address = formatAddress(address_object);
+            results_text += formatted_address;
+        }
+        else {
+            results_text += request_json["status"];
+        }
+        
+        results_text += "\n";
+        document.getElementById("results_box").value = results_text;
+        //progress_bar.increment();
+    });
+    progress_bar.reset(0);
+}
+
+function geocode() {
+    "use strict";
+    
+    if (document.getElementById("sync_checkbox").checked)
+        syncGeocode();
+    else
+        asyncGeocode();
+}
+
 function reverse_geocode() {
     "use strict";
     
     alert("Te trolei ainda preciso fazer essa função");
 }
 
-changeTheme();
+//changeTheme();
 
 const progress_bar = new ProgressBar();
 
