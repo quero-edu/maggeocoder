@@ -92,6 +92,28 @@ class ProgressBar {
     }
 }
 
+class GoogleMap {
+    constructor() {
+        this.map = new google.maps.Map(document.getElementById('map_div'), {
+            center: {lat: -14.235004, lng: -51.92528},
+            zoom: 4
+        });
+        this.markers = [];
+    }
+    
+    addMarker(marker) {
+        marker.setMap(this.map);
+        this.markers.push(marker);
+    }
+    
+    clearMarkers() {
+        this.markers.forEach(function(marker){
+            marker.setMap(null);
+        });
+        this.markers = [];
+    }
+}
+
 function changeTheme() {
     "use strict";
     document.getElementById("body").style.color = "#DDD";
@@ -138,12 +160,13 @@ function geocode() {
     const address_text = document.getElementById("addresses_box").value;
     const address_array = address_text.split("\n");
     progress_bar.reset(address_array.length);
+    google_map.clearMarkers();
     
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
     
     address_array.forEach(async function (address) { // jshint ignore:line
         // await
-        const api_choice =  document.querySelector('input[name=api_radio]:checked').value;
+        const api_choice = document.querySelector('input[name=api_radio]:checked').value;
         let request_json = {};
         
         switch (api_choice) {
@@ -153,13 +176,11 @@ function geocode() {
                 request_json = JSON.parse(response);
                 break;
             case "mapsapi":
-                console.log("In");
                 const request = {
                     "address": address,
                     "region": REGION
                 };
                 request_json = await mapsRequest(request); // jshint ignore:line
-                console.log(request_json);
                 break;
         }
         
@@ -169,6 +190,14 @@ function geocode() {
         if (request_json["status"] === "OK") {
             const formatted_address = formatAddress(address_object);
             results_text += formatted_address;
+            const marker = new google.maps.Marker({
+                position: {
+                    lat: parseFloat(address_object.lat),
+                    lng: parseFloat(address_object.lon)
+                },
+                animation: google.maps.Animation.DROP,
+            });
+            google_map.addMarker(marker);
         }
         else {
             results_text += request_json["status"];
@@ -188,9 +217,6 @@ function reverse_geocode() {
 
 changeTheme();
 
-const map = new google.maps.Map(document.getElementById('map_div'), {
-    center: {lat: -14.235004, lng: -51.92528},
-    zoom: 4
-});
-
 const progress_bar = new ProgressBar();
+
+const google_map = new GoogleMap();
