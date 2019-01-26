@@ -14,6 +14,17 @@ var map = new google.maps.Map(document.getElementById('map_div'), {
     zoom: 4
 });
 
+function changeTheme() {
+    "use strict";
+    document.getElementById("body").style.color = "#DDD";
+    document.getElementById("body").style.backgroundColor = "#333";
+    const textareas = document.getElementsByTagName("textarea");
+    for (let element of textareas) {
+        element.style.color = "DDD";
+        element.style.backgroundColor = "#333";
+    }
+}
+
 function httpGet(url) {
     "use strict";
     
@@ -190,3 +201,5 @@ function geocode() {
             break;
     }
 }
+
+changeTheme();
