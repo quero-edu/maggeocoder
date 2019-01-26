@@ -4,7 +4,7 @@
 /*jshint sub: true*/
 /*jshint strict: true */
 
-const API_KEY = "***REMOVED***";
+const API_KEY = "YOURKEYHERE";
 const LANGUAGE = "pt-BR";
 const REGION = "BR";
 const BASE = "https://maps.googleapis.com/maps/api/geocode/json?";
