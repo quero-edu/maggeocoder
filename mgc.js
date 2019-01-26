@@ -9,35 +9,6 @@ const LANGUAGE = "pt-BR";
 const REGION = "BR";
 const BASE = "https://maps.googleapis.com/maps/api/geocode/json?";
 
-var map = new google.maps.Map(document.getElementById('map_div'), {
-    center: {lat: -14.235004, lng: -51.92528},
-    zoom: 4
-});
-
-function changeTheme() {
-    "use strict";
-    document.getElementById("body").style.color = "#DDD";
-    document.getElementById("body").style.backgroundColor = "#333";
-    const textareas = document.getElementsByTagName("textarea");
-    for (let element of textareas) {
-        element.style.color = "#DDD";
-        element.style.backgroundColor = "#333";
-    }
-    document.getElementById("progress_bar").style.backgroundColor = "#333";
-}
-
-function httpGet(url) {
-    "use strict";
-    
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      xhr.onload = () => resolve(xhr.responseText);
-      xhr.onerror = () => reject(xhr.statusText);
-      xhr.send();
-    });
-  }
-
 class Address {
     constructor(googleJson, apitype) {
         "use strict";
@@ -105,6 +76,48 @@ class Address {
     }
 }
 
+class ProgressBar {
+    constructor(){
+        this.element = document.getElementById("progress_bar");
+        this.element.max = 0;
+    }
+    
+    increment() {
+        this.element.value += this.element.value < this.element.max ? 1 : 0;
+    }
+    
+    reset(maxvalue) {
+        this.element.max = maxvalue;
+        this.element.value = 0;
+    }
+}
+
+function changeTheme() {
+    "use strict";
+    document.getElementById("body").style.color = "#DDD";
+    document.getElementById("body").style.backgroundColor = "#333";
+    const textareas = document.getElementsByTagName("textarea");
+    for (let element of textareas) {
+        element.style.color = "#DDD";
+        element.style.backgroundColor = "#333";
+    }
+    document.getElementById("progress_bar").style.backgroundColor = "#333";
+}
+
+function httpGet(url) {
+    "use strict";
+    
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = () => resolve(xhr.responseText);
+      xhr.onerror = () => reject(xhr.statusText);
+      xhr.send();
+    });
+  }
+
+
+
 function formatAddress(address) {
     "use strict";
     return `${address.estado}\t${address.cidade}\t${address.endereco}\t${address.complemento}\t${address.bairro}\t${address.cep}\t${address.lat}\t${address.lon}`;
@@ -115,8 +128,7 @@ function geocodeAPIgeocode() {
     
     const address_text = document.getElementById("addresses_box").value;
     const address_array = address_text.split("\n");
-    document.getElementById("progress_bar").value = 0;
-    document.getElementById("progress_bar").max = address_array.length;
+    progress_bar.reset(address_array.length);
     
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
     
@@ -138,7 +150,7 @@ function geocodeAPIgeocode() {
         }
         
         results_text += "\n";
-        document.getElementById("progress_bar").value += 1;
+        progress_bar.increment();
         document.getElementById("results_box").value = results_text;
     }); // jshint ignore:line
 }
@@ -164,8 +176,6 @@ function mapsAPIGeocode() {
         geocoder.geocode(request, function(results, status) {
             if (status == "OK") {
                 const request_json = {"results": results};
-                console.log(request_json);
-                console.log(request_json["results"][0]["geometry"]["location"]["lat"]());
                 const address_object = new Address(request_json, "mapsapi");
                 const formatted_address = formatAddress(address_object);
                 results_text += formatted_address;
@@ -204,3 +214,10 @@ function geocode() {
 }
 
 changeTheme();
+
+const map = new google.maps.Map(document.getElementById('map_div'), {
+    center: {lat: -14.235004, lng: -51.92528},
+    zoom: 4
+});
+
+const progress_bar = new ProgressBar();
