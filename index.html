@@ -14,22 +14,17 @@
   </head>
   <body id="body">
     <div>
-      <a onclick="changeTheme()"><h2>MagGeoCoder 0.2</h2></a>
+      <a onclick="changeTheme()"><h2>MagGeoCoder 0.3</h2></a>
       <div>
         Endereços
         <form>
           <textarea id="addresses_box" placeholder="Endereço 1&#10;Endereço 2&#10;..." style="height: 200px; width: 900px"></textarea>
           <br>
-          <input type="radio" id="geoapi_radio" checked="checked" name="api_radio" value="geoapi">
-          <label for="geoapi_radio">Geocode API</label>
-          <input type="radio" id="mapsapi_radio" name="api_radio" value="mapsapi">
-          <label for="mapsapi_radio">Maps JS API</label>
-          <br>
           <input type="checkbox" id="removelines_checkbox" checked>
           <label for="removelines_checkbox">Remover Linhas em Branco</label>
           <br>
-          <input type="button" value="Geocode" onclick="geocode()">
-          <input type="button" value="Reverse Geocode" onclick="reverse_geocode()">
+          <input type="button" value="Geocode" onclick="geocode('standard')">
+          <input type="button" value="Reverse Geocode" onclick="geocode('reverse')">
         </form>
       </div>
       <div style="width: 900px">

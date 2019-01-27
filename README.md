@@ -1,10 +1,10 @@
 # MagGeoCoder
 
-**TODO**: Test Maps API vs Place Geocode API
+~~**TODO**: Test Maps API vs Place Geocode API~~ Removed
 
 ~~**TODO**: Order results~~
 
-**TODO**: Reverse Geocode
+~~**TODO**: Reverse Geocode~~
 
 ~~**TODO**: Show result pins on map from acquired lat/lons~~
 
