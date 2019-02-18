@@ -4,7 +4,7 @@
 /*jshint sub: true*/
 /*jshint strict: true */
 
-const API_KEY = "YOURKEYHERE    ";
+const API_KEY = "YOURKEYHERE";
 const LANGUAGE = "pt-BR";
 const REGION = "BR";
 const BASE = "https://maps.googleapis.com/maps/api/geocode/json?";
@@ -110,14 +110,54 @@ class GoogleMap {
 
 function changeTheme() {
     "use strict";
-    document.getElementById("body").style.color = "#DDD";
-    document.getElementById("body").style.backgroundColor = "#333";
-    const textareas = document.getElementsByTagName("textarea");
-    for (let element of textareas) {
-        element.style.color = "#DDD";
-        element.style.backgroundColor = "#333";
+    
+    if (localStorage.getItem("color_mode") === "darkmode"){ 
+        document.getElementById("body").style.color = "#000";
+        document.getElementById("body").style.backgroundColor = "#FFF";
+        const textareas = document.getElementsByTagName("textarea");
+        for (let element of textareas) {
+            element.style.color = "#000";
+            element.style.backgroundColor = "#FFF";
+        }
+        document.getElementById("progress_bar").style.backgroundColor = "#FFF";
+        
+        localStorage.setItem("color_mode", "lightmode");
     }
-    document.getElementById("progress_bar").style.backgroundColor = "#333";
+    else {
+        document.getElementById("body").style.color = "#DDD";
+        document.getElementById("body").style.backgroundColor = "#333";
+        const textareas = document.getElementsByTagName("textarea");
+        for (let element of textareas) {
+            element.style.color = "#DDD";
+            element.style.backgroundColor = "#333";
+        }
+        document.getElementById("progress_bar").style.backgroundColor = "#333";
+        
+        localStorage.setItem("color_mode", "darkmode");
+    }
+    
+}
+
+function updateTheme() {
+    "use strict";
+    
+    if (localStorage.getItem("color_mode") === "darkmode"){
+        localStorage.setItem("color_mode", "lightmode");
+        changeTheme();
+    }
+}
+
+function saveRemovelinesCheckboxState() {
+    "use strict";
+    const checked = document.getElementById("removelines_checkbox").checked ? "true" : "false";
+    localStorage.setItem("removelines_state", checked);
+}
+
+function updateRemovelinesCheckboxState() {
+    "use strict";
+    
+    if (localStorage.getItem("removelines_state") == "false")
+        document.getElementById("removelines_checkbox").checked = false;
 }
 
 function httpGet(url) {
@@ -195,8 +235,8 @@ async function geocode(type) { // jshint ignore:line
     }
 }
 
-//changeTheme();
+updateTheme();
+updateRemovelinesCheckboxState();
 
 const progress_bar = new ProgressBar();
-
 const google_map = new GoogleMap();

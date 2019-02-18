@@ -36,12 +36,12 @@
       
       <div style="display: flex">
         <div style="flex: 50%">
-          <h1>MagGeoCoder v0.4</h1>
+          <h1>MagGeoCoder v0.3</h1>
         </div>
         <div style="text-align: right; display: flex; align-items: flex-end; justify-items: flex-end">
           <span style="line-height: 1.5em">
-            <a onclick="changeTheme()" href="#">Toggle Darkmode 🌒</a><br>
-            <a href="https://github.com/quero-edu/maggeocoder" target="_blank">Check the source code on GitHub</a><br>
+            <a onclick="changeTheme()" href="#">Habilitar/Desabilitar Darkmode 🌒</a><br>
+            <a href="https://github.com/quero-edu/maggeocoder" target="_blank">Veja o código-fonte no GitHub ⚙</a><br>
           </span>
         </div>
       </div>
@@ -53,7 +53,7 @@
         <form>
           <textarea id="addresses_box" placeholder="Endereço 1&#10;Endereço 2&#10;..." style="height: 200px; width: 900px"></textarea>
           <br>
-          <input type="checkbox" id="removelines_checkbox" checked>
+          <input type="checkbox" id="removelines_checkbox" onchange="saveRemovelinesCheckboxState()" checked>
           <label for="removelines_checkbox">Remover Linhas em Branco</label>
           <br>
           <input type="button" value="Geocode" onclick="geocode('standard')">
