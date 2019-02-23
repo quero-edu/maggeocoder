@@ -4,9 +4,7 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 ## To-dos
 
-**TODO**: Move styling js out of mgc.js and css into .css file
-
-**TODO**: Convert \t to whitespace on user input
+**TODO**: ~~Move styling and options js out of mgc.js~~ and css into .css file
 
 **TODO**: Export results to CSV
 
@@ -15,6 +13,8 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 **TODO**: Zoom map to perfectly fit all markers.
 
 **TODO**: Add form of exponential decay to requests (at one instance, in a 447 address query, 8 returned with a status as OVER_QUERY_LIMIT)
+
+~~**TODO**: Convert \t to whitespace on user input~~
 
 ~~**TODO**: Warn users if \n entries or if subsdistricts exist~~ \n warnings no longer necessary, so this feature just for subdisctricts is kinda superfluous.
 

@@ -108,19 +108,6 @@ class GoogleMap {
     }
 }
 
-function saveRemovelinesCheckboxState() {
-    "use strict";
-    const checked = document.getElementById("removelines_checkbox").checked ? "true" : "false";
-    localStorage.setItem("removelines_state", checked);
-}
-
-function updateRemovelinesCheckboxState() {
-    "use strict";
-    
-    if (localStorage.getItem("removelines_state") == "false")
-        document.getElementById("removelines_checkbox").checked = false;
-}
-
 function httpGet(url) {
     "use strict";
     
@@ -141,10 +128,12 @@ function formatAddress(address) {
 async function geocode(type) { // jshint ignore:line
     "use strict";
     
-    const address_text = document.getElementById("addresses_box").value;
-    let address_array = address_text.split("\n");
+    let address_text = document.getElementById("addresses_box").value;
+    if (removeTabsEnabled())
+        address_text = address_text.replace(/\t/g, ' ');
     
-    if (document.getElementById("removelines_checkbox").checked)
+    let address_array = address_text.split("\n");
+    if (removeEmptyLinesEnabled())
         address_array = address_array.filter(line => line != "");
     
     progress_bar.reset(address_array.length);
@@ -195,8 +184,6 @@ async function geocode(type) { // jshint ignore:line
         document.getElementById("results_box").value = results_text;
     }
 }
-
-updateRemovelinesCheckboxState();
 
 const progress_bar = new ProgressBar();
 const google_map = new GoogleMap();

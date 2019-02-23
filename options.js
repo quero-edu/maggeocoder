@@ -43,4 +43,43 @@ function updateTheme() {
     }
 }
 
+function saveRemoveLinesState() {
+    "use strict";
+    const checked = document.getElementById("removelines_checkbox").checked ? "true" : "false";
+    localStorage.setItem("removelines_state", checked);
+}
+
+function saveRemoveTabsState() {
+    "use strict";
+    const checked = document.getElementById("removetabs_checkbox").checked ? "true" : "false";
+    localStorage.setItem("removetabs_state", checked);
+}
+
+function updateRemoveLinesState() {
+    "use strict";
+    
+    if (localStorage.getItem("removelines_state") === "false")
+        document.getElementById("removelines_checkbox").checked = false;
+}
+
+function updateRemoveTabsState() {
+    "use strict";
+    
+    if (localStorage.getItem("removetabs_state") === "false")
+        document.getElementById("removetabs_checkbox").checked = false;
+}
+
+function removeEmptyLinesEnabled() {
+    "use strict";
+    return document.getElementById("removelines_checkbox").checked;
+}
+
+function removeTabsEnabled() {
+    "use strict";
+    return document.getElementById("removetabs_checkbox").checked;
+}
+
 updateTheme();
+updateRemoveLinesState();
+updateRemoveTabsState();
+

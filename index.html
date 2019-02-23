@@ -53,7 +53,10 @@
         <form>
           <textarea id="addresses_box" placeholder="Endereço 1&#10;Endereço 2&#10;..." style="height: 200px; width: 900px"></textarea>
           <br>
-          <input type="checkbox" id="removelines_checkbox" onchange="saveRemovelinesCheckboxState()" checked>
+          <input type="checkbox" id="removetabs_checkbox" onchange="saveRemoveTabsState()" checked>
+          <label for="removetabs_checkbox">Remover tabs</label>
+          <br>
+          <input type="checkbox" id="removelines_checkbox" onchange="saveRemoveLinesState()" checked>
           <label for="removelines_checkbox">Remover Linhas em Branco</label>
           <br>
           <input type="button" value="Geocode" onclick="geocode('standard')">
