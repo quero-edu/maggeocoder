@@ -4,6 +4,10 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 ## To-dos
 
+**TODO**: Move styling js out of mgc.js and css into .css file
+
+**TODO**: Convert \t to whitespace on user input
+
 **TODO**: Export results to CSV
 
 **TODO**: Possibly store/cache results in browser?

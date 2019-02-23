@@ -108,45 +108,6 @@ class GoogleMap {
     }
 }
 
-function changeTheme() {
-    "use strict";
-    
-    if (localStorage.getItem("color_mode") === "darkmode"){ 
-        document.getElementById("body").style.color = "#000";
-        document.getElementById("body").style.backgroundColor = "#FFF";
-        const textareas = document.getElementsByTagName("textarea");
-        for (let element of textareas) {
-            element.style.color = "#000";
-            element.style.backgroundColor = "#FFF";
-        }
-        document.getElementById("progress_bar").style.backgroundColor = "#FFF";
-        
-        localStorage.setItem("color_mode", "lightmode");
-    }
-    else {
-        document.getElementById("body").style.color = "#DDD";
-        document.getElementById("body").style.backgroundColor = "#333";
-        const textareas = document.getElementsByTagName("textarea");
-        for (let element of textareas) {
-            element.style.color = "#DDD";
-            element.style.backgroundColor = "#333";
-        }
-        document.getElementById("progress_bar").style.backgroundColor = "#333";
-        
-        localStorage.setItem("color_mode", "darkmode");
-    }
-    
-}
-
-function updateTheme() {
-    "use strict";
-    
-    if (localStorage.getItem("color_mode") === "darkmode"){
-        localStorage.setItem("color_mode", "lightmode");
-        changeTheme();
-    }
-}
-
 function saveRemovelinesCheckboxState() {
     "use strict";
     const checked = document.getElementById("removelines_checkbox").checked ? "true" : "false";
@@ -235,7 +196,6 @@ async function geocode(type) { // jshint ignore:line
     }
 }
 
-updateTheme();
 updateRemovelinesCheckboxState();
 
 const progress_bar = new ProgressBar();
