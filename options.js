@@ -79,6 +79,16 @@ function removeTabsEnabled() {
     return document.getElementById("removetabs_checkbox").checked;
 }
 
+function showOptions() {
+    "use strict";
+    const state = document.getElementById("options_div").style.display;
+    
+    if (state === "none")
+        document.getElementById("options_div").style.display = "block";
+    else
+        document.getElementById("options_div").style.display = "none";
+}
+
 updateTheme();
 updateRemoveLinesState();
 updateRemoveTabsState();

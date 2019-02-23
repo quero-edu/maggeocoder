@@ -1,3 +1,4 @@
+<!DOCTYPE html> 
 <html>
   <head lang="pt-BR">
     
@@ -27,58 +28,79 @@
         text-decoration: underline;
       }
       
+      #body_div div {
+        /*border: 2px solid blue;*/
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      
     </style>
     
   </head>
   
   <body id="body">
-    <div style="margin: auto; width: 900px">
-      
+    
+    <div id="header_div" style="margin: auto; width: 900px">
       <div style="display: flex">
         <div style="flex: 50%">
           <h1>MagGeoCoder v0.3</h1>
         </div>
         <div style="text-align: right; display: flex; align-items: flex-end; justify-items: flex-end">
           <span style="line-height: 1.5em">
-            <a onclick="changeTheme()" href="#">Habilitar/Desabilitar Darkmode 🌒</a><br>
-            <a href="https://github.com/quero-edu/maggeocoder" target="_blank">Veja o código-fonte no GitHub ⚙</a><br>
+            <a onclick="changeTheme(); return false" href="#">Habilitar/Desabilitar Darkmode 🌒</a>
+            <br>
+            <a href="https://github.com/quero-edu/maggeocoder" target="_blank">Veja o código-fonte no GitHub ⚙</a>
           </span>
         </div>
       </div>
       
       <hr>
       
-      <div>
-        Endereços
-        <form>
-          <textarea id="addresses_box" placeholder="Endereço 1&#10;Endereço 2&#10;..." style="height: 200px; width: 900px"></textarea>
-          <br>
-          <input type="checkbox" id="removetabs_checkbox" onchange="saveRemoveTabsState()" checked>
-          <label for="removetabs_checkbox">Remover tabs</label>
-          <br>
-          <input type="checkbox" id="removelines_checkbox" onchange="saveRemoveLinesState()" checked>
-          <label for="removelines_checkbox">Remover Linhas em Branco</label>
-          <br>
-          <input type="button" value="Geocode" onclick="geocode('standard')">
-          <input type="button" value="Reverse Geocode" onclick="geocode('reverse')">
-        </form>
+      <div id="body_div">
+        <div>
+          Endereços
+          <div>
+            <div>
+              <textarea id="addresses_box" placeholder="Endereço 1&#10;Endereço 2&#10;..." style="height: 200px; width: 900px"></textarea>
+            </div>
+            
+            <div>
+              <a onclick= "showOptions(); return false" href="#">Opções</a>
+            </div>
+            
+            <div id="options_div" style="display: none; border: 1px solid gray">
+              <input type="checkbox" id="removetabs_checkbox" onchange="saveRemoveTabsState()" checked>
+              <label for="removetabs_checkbox">Remover Tabs da Entrada</label>
+              <br>
+              <input type="checkbox" id="removelines_checkbox" onchange="saveRemoveLinesState()" checked>
+              <label for="removelines_checkbox">Remover Linhas em Branco</label>
+            </div>
+            
+            <div>
+              <input type="button" value="Geocode" onclick="geocode('standard')">
+              <input type="button" value="Reverse Geocode" onclick="geocode('reverse')">
+            </div>
+          </div>
+        </div>
+        
+        <div style="width: 100%">
+          <div id="map_div" style="height: 450px"></div>
+        </div>
+        
+        <div>
+          <progress id="progress_bar" value="0" max="100" style="width: 900px"></progress>
+        </div>
+        
+        <div>
+          Resultados
+          <div>
+            <textarea id="results_box" placeholder="Estado, Cidade, Endereço, Complemento, Bairro, CEP, Latitude, Longitude" style="height: 200px; width: 900px"></textarea>
+          </div>
+        </div>
+        
       </div>
-      
-      <div style="width: 100%">
-        <div id="map_div" style="height: 450px"></div>
-      </div>
-      
-      <div>
-        <br>
-        <progress id="progress_bar" value="0" max="100" style="width: 900px"></progress>
-      </div>
-      
-      <div>
-        <br>Resultados<br>
-        <textarea id="results_box" placeholder="Estado, Cidade, Endereço, Complemento, Bairro, CEP, Latitude, Longitude" style="height: 200px; width: 900px"></textarea>
-      </div>
-      
     </div>
+    
     <script src="options.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=YOURKEYHERE&language=pt-BR"></script>
     <script src="mgc.js"></script>
