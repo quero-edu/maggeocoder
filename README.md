@@ -10,9 +10,9 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 **TODO**: Zoom map to perfectly fit all markers.
 
-**TODO**: Add form of exponential decay to requests (at one instance, in a 447 address query, 8 returned with a status as OVER_QUERY_LIMIT)
-
 **TODO**: ~~Move styling and options js out of mgc.js~~ and css into .css file
+
+~~**TODO**: Add form of exponential decay to requests (at one instance, in a 447 address query, 8 returned with a status as OVER_QUERY_LIMIT)~~ Requests are sent at a fixed interval to not exceed query limits
 
 ~~**TODO**: Convert \t to whitespace on user input~~ Done!
 
@@ -28,6 +28,12 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 ## Version History
 
+* **Version 0.4**
+    * Added delay in between requests to not exceed query maximum of 50 requests/second
+    * Added default option to remove tabs from user input
+    * Moved styling logic into separate js file for better page loading experience
+    * Improved access to darkmode and added link to project repository 
+    * Improved styling and document semantics
 * **Version 0.3**
     * Now adding geocoded locations as pins to the Google Map for double-checking results
     * Added reverse-geocoding for decimal `LAT\tLON` pairs
