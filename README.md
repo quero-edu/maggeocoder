@@ -29,7 +29,7 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 ## Version History
 
 * **Version 0.4**
-    * Added delay in between requests to not exceed query maximum of 50 requests/second
+    * Added delay in between requests to not exceed API maximum of 50 requests/second
     * Added option to remove tabs from user input (on by default)
     * Added option to export results to .csv file
     * Embedded map now zooms in to marker locations
