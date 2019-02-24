@@ -67,6 +67,22 @@ function saveRemoveMarkersState() {
     localStorage.setItem("removemarkers_state", checked);
 }
 
+function saveGenerateCSVState() {
+    "use strict";
+    const checked = document.getElementById("generatecsv_checkbox").checked ? "true" : "false";
+    localStorage.setItem("generatecsv_state", checked);
+    if (checked == "true")
+        document.getElementById("addbom_checkbox").disabled = false;
+    else
+        document.getElementById("addbom_checkbox").disabled = true;
+}
+
+function saveAddBOMState() {
+    "use strict";
+    const checked = document.getElementById("addbom_checkbox").checked ? "true" : "false";
+    localStorage.setItem("addbom_state", checked);
+}
+
 function updateRemoveLinesState() {
     "use strict";
     if (localStorage.getItem("removelines_state") === "false")
@@ -91,6 +107,23 @@ function updateRemoveMarkersState() {
         document.getElementById("removemarkers_checkbox").checked = false;
 }
 
+function updateGenerateCSVState() {
+    "use strict";
+    if (localStorage.getItem("generatecsv_state") === "true") {
+        document.getElementById("generatecsv_checkbox").checked = true;
+        document.getElementById("addbom_checkbox").disabled = false;
+    }
+    else {
+        document.getElementById("addbom_checkbox").disabled = true;
+    }
+}
+
+function updateAddBOMState() {
+    "use strict";
+    if (localStorage.getItem("addbom_state") === "false")
+        document.getElementById("addbom_checkbox").checked = false;
+}
+
 function removeEmptyLinesEnabled() {
     "use strict";
     return document.getElementById("removelines_checkbox").checked;
@@ -109,6 +142,16 @@ function autoZoomEnabled() {
 function removeMarkersEnabled() {
     "use strict";
     return document.getElementById("removemarkers_checkbox").checked;
+}
+
+function generateCSVEnabled() {
+    "use strict";
+    return document.getElementById("generatecsv_checkbox").checked;
+}
+
+function addBOMEnabled() {
+    "use strict";
+    return document.getElementById("addbom_checkbox").checked;
 }
 
 function showOptions() {
@@ -130,3 +173,5 @@ updateRemoveLinesState();
 updateRemoveTabsState();
 updateAutoZoomState();
 updateRemoveMarkersState();
+updateGenerateCSVState();
+updateAddBOMState();

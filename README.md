@@ -4,11 +4,11 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 ## To-dos
 
-**TODO**: Export results to CSV
-
 **TODO**: Possibly store/cache results in browser?
 
 **TODO**: ~~Move styling and options js out of mgc.js~~ and css into .css file
+
+~~**TODO**: Export results to CSV~~ Done!
 
 ~~**TODO**: Zoom map to perfectly fit all markers.~~ Done!
 

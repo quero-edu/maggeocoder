@@ -159,6 +159,8 @@ async function geocode(type) { // jshint ignore:line
     if(removeMarkersEnabled())
         google_map.clearMarkers();
     
+    document.getElementById("download_link").style.display = "none";
+    
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
     let promises = [];
     
@@ -210,7 +212,23 @@ async function geocode(type) { // jshint ignore:line
     
     if(autoZoomEnabled())
         google_map.zoomToMarkers();
+    
+    if(generateCSVEnabled()) {
+        let csv_text = "\""  + results_text.replace(/\"/g, "'");
+        
+        if(addBOMEnabled())
+            csv_text = "\uFEFF" + csv_text;
+        
+        csv_text = csv_text.replace(/\t/g, "\",\"").replace(/\n/g, "\"\n\"").slice(0, -1);
+        
+        const file = new Blob([csv_text], {type: "text/csv"});
+        document.getElementById("download_link").href = URL.createObjectURL(file);
+        document.getElementById("download_link").download = "geocode" + Date.now() + ".csv";
+        document.getElementById("download_link").style.display = "inline";
+    }
+    
     document.body.style.cursor = 'default';
+    
 }
 
 const progress_bar = new ProgressBar();

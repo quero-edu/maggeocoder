@@ -71,7 +71,7 @@
               <span style="font-size: larger"><a id="options_link" onclick= "showOptions(); return false" href="#">Mostrar Opções</a></span>
             </div>
             
-            <div id="options_div" style="display: none; border: 1px solid gray">
+            <div id="options_div" style="display: none; border: 1px solid gray; line-height: 1.5em">
               Entrada:
               <br>
               <input type="checkbox" id="removetabs_checkbox" onchange="saveRemoveTabsState()" checked>
@@ -87,6 +87,14 @@
               <br>
               <input type="checkbox" id="removemarkers_checkbox" onchange="saveRemoveMarkersState()" checked>
               <label for="removemarkers_checkbox">Remover Marcadores a cada Nova Consulta</label>
+              <br>
+              Resultados:
+              <br>
+              <input type="checkbox" id="generatecsv_checkbox" onchange="saveGenerateCSVState()">
+              <label for="generatecsv_checkbox">Gerar Link para Arquivo CSV</label>
+              <br>
+              <input type="checkbox" id="addbom_checkbox" onchange="saveAddBOMState()" checked disabled>
+              <label for="addbom_checkbox">Adicionar BOM (CSV para Excel)</label>
             </div>
             
             <div>
@@ -105,7 +113,7 @@
         </div>
         
         <div>
-          <span style="font-size: larger">Resultados</span>
+          <span style="font-size: larger">Resultados</span> <a id="download_link" href="" style="display: none">Link para Download CSV</a>
           <div>
             <textarea id="results_box" placeholder="Estado, Cidade, Endereço, Complemento, Bairro, CEP, Latitude, Longitude" style="height: 200px; width: 100%"></textarea>
           </div>
