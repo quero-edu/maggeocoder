@@ -106,6 +106,19 @@ class GoogleMap {
         });
         this.markers = [];
     }
+    
+    zoomToMarkers() {
+        const bounds = new google.maps.LatLngBounds();
+        for(const marker of this.markers) {
+            bounds.extend(marker.getPosition());
+        }
+        this.map.fitBounds(bounds);
+        const map = this.map;
+        google.maps.event.addListenerOnce(map, "bounds_changed", function() { 
+            if (map.getZoom() > 10)
+                map.setZoom(10); 
+        });
+    }
 }
 
 function httpGet(url) {
@@ -124,9 +137,9 @@ function formatAddress(address) {
     return `${address.estado}\t${address.cidade}\t${address.endereco}\t${address.complemento}\t${address.bairro}\t${address.cep}\t${address.lat}\t${address.lon}`;
 }
 
-function sleep(millisecons) {
+function sleep(milliseconds) {
     "use strict";
-    return new Promise(res => setTimeout(res, millisecons));
+    return new Promise(res => setTimeout(res, milliseconds));
 }
 
 async function geocode(type) { // jshint ignore:line
@@ -193,7 +206,7 @@ async function geocode(type) { // jshint ignore:line
         progress_bar.increment();
         document.getElementById("results_box").value = results_text;
     }
-    
+    google_map.zoomToMarkers();
     document.body.style.cursor = 'default';
 }
 
