@@ -4,6 +4,10 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 ## To-dos
 
+**TODO**: Offer the option to select which address components should be shown in the results
+
+**TODO**: Show results in table form
+
 **TODO**: Possibly store/cache results in browser?
 
 **TODO**: ~~Move styling and options js out of mgc.js~~ and css into .css file
@@ -16,7 +20,7 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 ~~**TODO**: Convert \t to whitespace on user input~~ Done!
 
-~~**TODO**: Warn users if \n entries or if subsdistricts exist~~ \n warnings no longer necessary, so this feature just for subdisctricts is kinda superfluous.
+~~**TODO**: Warn users if \n entries or if subsdistricts exist~~ \n warnings no longer necessary, so this feature just for subdistricts is kinda superfluous.
 
 ~~**TODO**: Show result pins on map from acquired lat/lons~~ Done!
 
