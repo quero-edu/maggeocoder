@@ -219,7 +219,16 @@ async function geocode(type) { // jshint ignore:line
         if(addBOMEnabled())
             csv_text = "\uFEFF" + csv_text;
         
-        csv_text = csv_text.replace(/\t/g, "\",\"").replace(/\n/g, "\"\n\"").slice(0, -1);
+        switch(csvSeparatorsValue()){
+            case "comma":
+                csv_text =  csv_text.replace(/\t/g, "\",\"");
+                break;
+            case "semicolon":
+                csv_text =  csv_text.replace(/\t/g, "\";\"");
+                break;
+        }
+        
+        csv_text =  csv_text.replace(/\n/g, "\"\n\"").slice(0, -1);
         
         const file = new Blob([csv_text], {type: "text/csv"});
         document.getElementById("download_link").href = URL.createObjectURL(file);

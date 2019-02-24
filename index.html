@@ -95,6 +95,11 @@
               <br>
               <input type="checkbox" id="addbom_checkbox" onchange="saveAddBOMState()" checked disabled>
               <label for="addbom_checkbox">Adicionar BOM (CSV para Excel)</label>
+              <br>
+              <input id="semicolon_radio" type="radio" name="csvseparators" value="semicolon" onchange="saveCSVSeparatorState()" checked disabled>
+              <label for="addbom_checkbox">Usar ';' como separador</label>
+              <input id="comma_radio" type="radio" name="csvseparators" value="comma" onchange="saveCSVSeparatorState()" disabled>
+              <label for="addbom_checkbox">Usar ',' como separador</label>
             </div>
             
             <div>

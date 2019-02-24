@@ -71,16 +71,28 @@ function saveGenerateCSVState() {
     "use strict";
     const checked = document.getElementById("generatecsv_checkbox").checked ? "true" : "false";
     localStorage.setItem("generatecsv_state", checked);
-    if (checked == "true")
+    if (checked == "true") {
         document.getElementById("addbom_checkbox").disabled = false;
-    else
+        document.getElementById("semicolon_radio").disabled = false;
+        document.getElementById("comma_radio").disabled = false;
+    }
+    else {
         document.getElementById("addbom_checkbox").disabled = true;
+        document.getElementById("semicolon_radio").disabled = true;
+        document.getElementById("comma_radio").disabled = true;
+    }
 }
 
 function saveAddBOMState() {
     "use strict";
     const checked = document.getElementById("addbom_checkbox").checked ? "true" : "false";
     localStorage.setItem("addbom_state", checked);
+}
+
+function saveCSVSeparatorState() {
+    "use strict";
+    const checked = document.getElementById("semicolon_radio").checked ? "semicolon" : "comma";
+    localStorage.setItem("csvseparator_state", checked);
 }
 
 function updateRemoveLinesState() {
@@ -112,9 +124,13 @@ function updateGenerateCSVState() {
     if (localStorage.getItem("generatecsv_state") === "true") {
         document.getElementById("generatecsv_checkbox").checked = true;
         document.getElementById("addbom_checkbox").disabled = false;
+        document.getElementById("semicolon_radio").disabled = false;
+        document.getElementById("comma_radio").disabled = false;
     }
     else {
         document.getElementById("addbom_checkbox").disabled = true;
+        document.getElementById("semicolon_radio").disabled = true;
+        document.getElementById("comma_radio").disabled = true;
     }
 }
 
@@ -122,6 +138,14 @@ function updateAddBOMState() {
     "use strict";
     if (localStorage.getItem("addbom_state") === "false")
         document.getElementById("addbom_checkbox").checked = false;
+}
+
+function updateCSVSeparatorState() {
+    "use strict";
+    if (localStorage.getItem("csvseparator_state") === "comma") {
+        document.getElementById("semicolon_radio").checked = false;
+        document.getElementById("comma_radio").checked = true;
+    }
 }
 
 function removeEmptyLinesEnabled() {
@@ -154,6 +178,14 @@ function addBOMEnabled() {
     return document.getElementById("addbom_checkbox").checked;
 }
 
+function csvSeparatorsValue() {
+    "use strict";
+    if (document.getElementById("comma_radio").checked)
+        return "comma";
+    else
+        return "semicolon";
+}
+
 function showOptions() {
     "use strict";
     const state = document.getElementById("options_div").style.display;
@@ -175,3 +207,4 @@ updateAutoZoomState();
 updateRemoveMarkersState();
 updateGenerateCSVState();
 updateAddBOMState();
+updateCSVSeparatorState();
