@@ -156,7 +156,8 @@ async function geocode(type) { // jshint ignore:line
         address_array = address_array.filter(line => line != "");
     
     progress_bar.reset(address_array.length);
-    google_map.clearMarkers();
+    if(removeMarkersEnabled())
+        google_map.clearMarkers();
     
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
     let promises = [];
@@ -206,7 +207,9 @@ async function geocode(type) { // jshint ignore:line
         progress_bar.increment();
         document.getElementById("results_box").value = results_text;
     }
-    google_map.zoomToMarkers();
+    
+    if(autoZoomEnabled())
+        google_map.zoomToMarkers();
     document.body.style.cursor = 'default';
 }
 

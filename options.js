@@ -55,18 +55,40 @@ function saveRemoveTabsState() {
     localStorage.setItem("removetabs_state", checked);
 }
 
+function saveAutoZoomState() {
+    "use strict";
+    const checked = document.getElementById("autozoom_checkbox").checked ? "true" : "false";
+    localStorage.setItem("autozoom_state", checked);
+}
+
+function saveRemoveMarkersState() {
+    "use strict";
+    const checked = document.getElementById("removemarkers_checkbox").checked ? "true" : "false";
+    localStorage.setItem("removemarkers_state", checked);
+}
+
 function updateRemoveLinesState() {
     "use strict";
-    
     if (localStorage.getItem("removelines_state") === "false")
         document.getElementById("removelines_checkbox").checked = false;
 }
 
 function updateRemoveTabsState() {
     "use strict";
-    
     if (localStorage.getItem("removetabs_state") === "false")
         document.getElementById("removetabs_checkbox").checked = false;
+}
+
+function updateAutoZoomState() {
+    "use strict";
+    if (localStorage.getItem("autozoom_state") === "false")
+        document.getElementById("autozoom_checkbox").checked = false;
+}
+
+function updateRemoveMarkersState() {
+    "use strict";
+    if (localStorage.getItem("removemarkers_state") === "false")
+        document.getElementById("removemarkers_checkbox").checked = false;
 }
 
 function removeEmptyLinesEnabled() {
@@ -77,6 +99,16 @@ function removeEmptyLinesEnabled() {
 function removeTabsEnabled() {
     "use strict";
     return document.getElementById("removetabs_checkbox").checked;
+}
+
+function autoZoomEnabled() {
+    "use strict";
+    return document.getElementById("autozoom_checkbox").checked;
+}
+
+function removeMarkersEnabled() {
+    "use strict";
+    return document.getElementById("removemarkers_checkbox").checked;
 }
 
 function showOptions() {
@@ -96,3 +128,5 @@ function showOptions() {
 updateTheme();
 updateRemoveLinesState();
 updateRemoveTabsState();
+updateAutoZoomState();
+updateRemoveMarkersState();

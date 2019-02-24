@@ -34,6 +34,10 @@
         margin-bottom: 10px;
       }
       
+      #options_div {
+        padding: 2px;
+      }
+      
     </style>
     
   </head>
@@ -68,11 +72,21 @@
             </div>
             
             <div id="options_div" style="display: none; border: 1px solid gray">
+              Entrada:
+              <br>
               <input type="checkbox" id="removetabs_checkbox" onchange="saveRemoveTabsState()" checked>
-              <label for="removetabs_checkbox">Remover Tabs da Entrada</label>
+              <label for="removetabs_checkbox">Substituir Tabs por Whitespace</label>
               <br>
               <input type="checkbox" id="removelines_checkbox" onchange="saveRemoveLinesState()" checked>
               <label for="removelines_checkbox">Remover Linhas em Branco</label>
+              <br>
+              Mapa:
+              <br>
+              <input type="checkbox" id="autozoom_checkbox" onchange="saveAutoZoomState()" checked>
+              <label for="autozoom_checkbox">Modificar Zoom do Mapa Automaticamente</label>
+              <br>
+              <input type="checkbox" id="removemarkers_checkbox" onchange="saveRemoveMarkersState()" checked>
+              <label for="removemarkers_checkbox">Remover Marcadores a cada Nova Consulta</label>
             </div>
             
             <div>
