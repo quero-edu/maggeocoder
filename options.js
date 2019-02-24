@@ -16,7 +16,7 @@ function changeTheme() {
             element.style.backgroundColor = "#FFF";
         }
         document.getElementById("progress_bar").style.backgroundColor = "#FFF";
-        
+        document.getElementById("darkmode_link").innerHTML = "Habilitar Darkmode 🌒";
         localStorage.setItem("color_mode", "lightmode");
     }
     else {
@@ -28,7 +28,7 @@ function changeTheme() {
             element.style.backgroundColor = "#333";
         }
         document.getElementById("progress_bar").style.backgroundColor = "#333";
-        
+        document.getElementById("darkmode_link").innerHTML = "Desabilitar Darkmode 🌖";
         localStorage.setItem("color_mode", "darkmode");
     }
     
@@ -83,13 +83,16 @@ function showOptions() {
     "use strict";
     const state = document.getElementById("options_div").style.display;
     
-    if (state === "none")
+    if (state === "none") {
         document.getElementById("options_div").style.display = "block";
-    else
+        document.getElementById("options_link").innerHTML = "Esconder Opções";
+    }
+    else {
         document.getElementById("options_div").style.display = "none";
+        document.getElementById("options_link").innerHTML = "Mostrar Opções";
+    }
 }
 
 updateTheme();
 updateRemoveLinesState();
 updateRemoveTabsState();
-

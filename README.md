@@ -30,7 +30,7 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 * **Version 0.4**
     * Added delay in between requests to not exceed query maximum of 50 requests/second
-    * Added default option to remove tabs from user input
+    * Added option to remove tabs from user input (on by default)
     * Embedded map now zooms in to marker locations
     * Moved styling logic into separate js file for better page loading experience
     * Improved access to darkmode and added link to project repository 

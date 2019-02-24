@@ -39,17 +39,16 @@
   </head>
   
   <body id="body">
-    
-    <div id="header_div" style="margin: auto; width: 900px">
-      <div style="display: flex">
+    <div style="margin: auto; width: 900px">
+      
+      <div id="header_div" style="display: flex">
         <div style="flex: 50%">
           <h1>MagGeoCoder v0.4</h1>
         </div>
         <div style="text-align: right; display: flex; align-items: flex-end; justify-items: flex-end">
           <span style="line-height: 1.5em">
-            <a onclick="changeTheme(); return false" href="#">Habilitar/Desabilitar Darkmode 🌒</a>
-            <br>
-            <a href="https://github.com/quero-edu/maggeocoder" target="_blank">Veja o código-fonte no GitHub ⚙</a>
+            <a id="darkmode_link" onclick="changeTheme(); return false" href="#">Habilitar Darkmode 🌒</a><br>
+            <a href="https://github.com/quero-edu/maggeocoder" target="_blank">Veja o código-fonte no GitHub ⚙️</a>
           </span>
         </div>
       </div>
@@ -61,11 +60,11 @@
           <span style="font-size: larger">Endereços</span>
           <div>
             <div>
-              <textarea id="addresses_box" placeholder="Endereço 1&#10;Endereço 2&#10;..." style="height: 200px; width: 900px"></textarea>
+              <textarea id="addresses_box" placeholder="Endereço 1&#10;Endereço 2&#10;..." style="height: 200px; width: 100%"></textarea>
             </div>
             
             <div>
-              <span style="font-size: larger"><a onclick= "showOptions(); return false" href="#">Opções</a></span>
+              <span style="font-size: larger"><a id="options_link" onclick= "showOptions(); return false" href="#">Mostrar Opções</a></span>
             </div>
             
             <div id="options_div" style="display: none; border: 1px solid gray">
@@ -88,13 +87,13 @@
         </div>
         
         <div>
-          <progress id="progress_bar" value="0" max="100" style="width: 900px"></progress>
+          <progress id="progress_bar" value="0" max="100" style="width: 100%"></progress>
         </div>
         
         <div>
           <span style="font-size: larger">Resultados</span>
           <div>
-            <textarea id="results_box" placeholder="Estado, Cidade, Endereço, Complemento, Bairro, CEP, Latitude, Longitude" style="height: 200px; width: 900px"></textarea>
+            <textarea id="results_box" placeholder="Estado, Cidade, Endereço, Complemento, Bairro, CEP, Latitude, Longitude" style="height: 200px; width: 100%"></textarea>
           </div>
         </div>
         
