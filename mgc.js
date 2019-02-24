@@ -110,7 +110,6 @@ class GoogleMap {
 
 function httpGet(url) {
     "use strict";
-    
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("GET", url);
@@ -125,8 +124,15 @@ function formatAddress(address) {
     return `${address.estado}\t${address.cidade}\t${address.endereco}\t${address.complemento}\t${address.bairro}\t${address.cep}\t${address.lat}\t${address.lon}`;
 }
 
+function sleep(millisecons) {
+    "use strict";
+    return new Promise(res => setTimeout(res, millisecons));
+}
+
 async function geocode(type) { // jshint ignore:line
     "use strict";
+    
+    document.body.style.cursor = 'progress';
     
     let address_text = document.getElementById("addresses_box").value;
     if (removeTabsEnabled())
@@ -142,19 +148,23 @@ async function geocode(type) { // jshint ignore:line
     let results_text = "Original\tEstado\tCidade\tEndereço\tComplemento\tBairro\tCEP\tLat\tLon\n";
     let promises = [];
     
-    address_array.forEach(function (address) { // jshint ignore:line
-        switch (type) {
-            case "standard":
-                const geocode_request_address = `${BASE}address=${address}&region=${REGION}&language=${LANGUAGE}&key=${API_KEY}`;
-                promises.push(httpGet(geocode_request_address));
-                break;
-            case "reverse":
-                const lat_lon = address.split("\t");
-                const reverse_request_address = `${BASE}latlng=${lat_lon[0] + "," + lat_lon[1]}&language=${LANGUAGE}&key=${API_KEY}`;
-                promises.push(httpGet(reverse_request_address));
-                break;
+    await (async function() { //jshint ignore:line
+        for(let i = 0; i < address_array.length; i++) {
+            await sleep(40); //jshint ignore:line
+            const address = address_array[i];
+            switch (type) {
+                case "standard":
+                    const geocode_request_address = `${BASE}address=${address}&region=${REGION}&language=${LANGUAGE}&key=${API_KEY}`;
+                    promises.push(httpGet(geocode_request_address));
+                    break;
+                case "reverse":
+                    const lat_lon = address.split("\t");
+                    const reverse_request_address = `${BASE}latlng=${lat_lon[0] + "," + lat_lon[1]}&language=${LANGUAGE}&key=${API_KEY}`;
+                    promises.push(httpGet(reverse_request_address));
+                    break;
+            }
         }
-    }); // jshint ignore:line
+    })(); //jshint ignore:line
     
     for (let i = 0; i < address_array.length; i++) {
         const result = await promises[i]; // jshint ignore:line
@@ -183,6 +193,8 @@ async function geocode(type) { // jshint ignore:line
         progress_bar.increment();
         document.getElementById("results_box").value = results_text;
     }
+    
+    document.body.style.cursor = 'default';
 }
 
 const progress_bar = new ProgressBar();
