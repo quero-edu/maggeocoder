@@ -4,6 +4,10 @@ Static website built for easy geocoding via Google APIs and formatted output rea
 
 ## To-dos
 
+**TODO**: Add 'clear' button to clear address textbox
+
+**TODO**: Improve progressbar (move progress to requests)
+
 **TODO**: Offer the option to select which address components should be shown in the results
 
 **TODO**: Show results in table form
